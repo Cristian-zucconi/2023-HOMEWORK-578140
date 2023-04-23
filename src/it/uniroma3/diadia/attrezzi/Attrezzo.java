@@ -1,4 +1,6 @@
+
 package it.uniroma3.diadia.attrezzi;
+
 import it.uniroma3.diadia.ambienti.Stanza;
 
 /**
@@ -25,6 +27,11 @@ public class Attrezzo {
 		this.peso = peso;
 		this.nome = nome;
 	}
+	
+	public Attrezzo() {
+		
+		
+	}
 
 	/**
 	 * Restituisce il nome identificatore dell'attrezzo
@@ -40,6 +47,14 @@ public class Attrezzo {
 	 */
 	public int getPeso() {
 		return this.peso;
+	}
+	
+	public void setNome(String nomeAttrezzo) {
+		this.nome = nomeAttrezzo;
+	}
+	
+	public void setPeso(int p) {
+		this.peso = p;
 	}
 
 	/**
