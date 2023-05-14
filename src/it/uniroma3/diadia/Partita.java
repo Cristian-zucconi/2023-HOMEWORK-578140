@@ -1,4 +1,3 @@
-
 package it.uniroma3.diadia;
 
 
@@ -27,11 +26,11 @@ public class Partita {
 	
 	
 	
-	public Partita(){
+	public Partita(Labirinto l){
 		
 		giocatore = new Giocatore();
-		lab = new Labirinto();
-		lab.creaStanze();
+		this.lab = l;
+		//lab.creaStanze();
 		this.stanzaCorrente = lab.entrata;
 		this.stanzaVincente = lab.uscita;
 		
@@ -47,19 +46,23 @@ public class Partita {
 	}
 
 	public Stanza getStanzaVincente() {
-		return stanzaVincente;
+		return this.getLabirinto().getStanzaVincente();
 	}
 
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.stanzaCorrente = stanzaCorrente;
+		this.getLabirinto().setStanzaCorrente(stanzaCorrente);
 	}
 
 	public Stanza getStanzaCorrente() {
-		return this.stanzaCorrente;
+		return this.getLabirinto().getStanzaCorrente();
 	}
 	
 	public Giocatore getGiocatore() {
 		return giocatore;
+	}
+	
+	public boolean giocatoreIsVivo() {
+		return this.getGiocatore().getCfu()>0;
 	}
 	
 	/**
@@ -67,7 +70,7 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return getStanzaCorrente()== getStanzaVincente();
+		return lab.getStanzaCorrente()== lab.getStanzaVincente();
 	}
 
 	/**

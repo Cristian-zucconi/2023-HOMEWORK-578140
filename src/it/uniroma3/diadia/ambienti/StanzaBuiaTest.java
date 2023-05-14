@@ -1,4 +1,3 @@
-
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
@@ -30,7 +29,7 @@ public class StanzaBuiaTest {
 	
 	@Test
 	public void testGetDescrizioneSenzaAttrezzo() {
-		String stringa = "Qui c'è buio pesto";
+		String stringa = "Qui c'Ã¨ buio pesto";
 		assertEquals(sb.getDescrizione(), stringa);
 	}
 

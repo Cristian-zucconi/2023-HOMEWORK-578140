@@ -1,4 +1,3 @@
-
 package it.uniroma3.diadia.comandi;
 
 import static org.junit.Assert.*;
@@ -7,10 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class ComandoPrendiTest {
 	
+	private Labirinto l;
 	private Partita p;
 	private Attrezzo attrezzo;
 	private Comando comando;
@@ -18,18 +20,23 @@ public class ComandoPrendiTest {
 	
 	@Before
 	public void setUp() {
-		p = new Partita();
+		l=new LabirintoBuilder()
+				.addStanzaIniziale("atrio")
+				.addAttrezzo("martello", 3)
+				.addStanzaVincente("biblioteca")
+				.getLabirinto();
+		
+		p = new Partita(l);
 		attrezzo = new Attrezzo("torcia", 1);
 		comando = new ComandoPrendi();
 	}
 
 	@Test
 	public void testAttrezzoPreso() {
-		p.getStanzaCorrente().addAttrezzo(attrezzo);
-		comando.setParametro("torcia");
+		comando.setParametro("martello");
 		comando.esegui(p);
-		assertTrue(p.getGiocatore().getBorsa().hasAttrezzo("torcia"));	
-		assertFalse(p.getStanzaCorrente().hasAttrezzo("torcia"));
+		assertTrue(p.getGiocatore().getBorsa().hasAttrezzo("martello"));	
+		assertFalse(l.getStanzaCorrente().hasAttrezzo("martello"));
 	}
 	
 	@Test

@@ -1,7 +1,4 @@
-
 package it.uniroma3.diadia.comandi;
-
-import java.util.logging.ConsoleHandler;
 
 import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
@@ -22,7 +19,6 @@ public class ComandoVai implements Comando{
 		if(direzione==null) {
 			inOut.mostraMessaggio("Dove vuoi andare?"
 					+ " Devi specificare una direzione");
-			return;
 		}
 		prossimaStanza = stanzaCorrente.getStanzaAdiacente(this.direzione);
 		if(prossimaStanza==null) {

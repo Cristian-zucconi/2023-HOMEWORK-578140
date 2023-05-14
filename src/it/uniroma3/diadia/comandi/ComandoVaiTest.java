@@ -1,4 +1,3 @@
-
 package it.uniroma3.diadia.comandi;
 
 import static org.junit.Assert.*;
@@ -7,48 +6,50 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class ComandoVaiTest {
 
-	private Stanza s1;
-	private Stanza s2;
+	private Labirinto l;
 	private Comando vai;
 	private Partita p;
 	
 	@Before
 	public void setUp() {
-		s1 = new Stanza("aula 1");
-		s2 = new Stanza("aula 2");
+		l = new LabirintoBuilder()
+				.addStanzaIniziale("atrio")
+				.addStanzaVincente("biblioteca")
+				.addAdiacenza("atrio", "biblioteca", "nord")
+				.getLabirinto();
+				
+				
+
 		vai = new ComandoVai();
-		p = new Partita();
+		p = new Partita(l);
 		
 	}
 	
 	@Test
 	public void testVaiNull() {
-
-		p.setStanzaCorrente(s1);
+		Stanza s = new Stanza("atrio");
 		vai.esegui(p);
-		assertEquals(s1, p.getStanzaCorrente());
+		assertEquals(s.getNome(), l.getStanzaCorrente().getNome());
 	}
 	
 	@Test
 	public void testVaiDirezioneNonEsiste() {
-		p.setStanzaCorrente(s1);
-		s1.impostaStanzaAdiacente("est", s2);
-		vai.setParametro("nord");
+		vai.setParametro("est");
 		vai.esegui(p);
-		assertNotEquals(s2, p.getStanzaCorrente());
+		assertNotEquals(l.getStanzaVincente(), l.getStanzaCorrente());
 	}
 	
 	@Test
 	public void testVaiDirezioneEsiste() {
-		p.setStanzaCorrente(s1);
-		s1.impostaStanzaAdiacente("nord", s2);
 		vai.setParametro("nord");
 		vai.esegui(p);
-		assertEquals(s2, p.getStanzaCorrente());
+		assertEquals(l.getStanzaVincente(), l.getStanzaCorrente());
 		
 	}
 
